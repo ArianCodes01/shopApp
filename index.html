@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+   <title>Shoply - Online Store</title>
+
+   <link rel="stylesheet" href="./styles/style.css" />
+</head>
+
+<body>
+   <!-- Header -->
+   <header class="header">
+      <div class="container header-content">
+         <a href="index.html" class="logo"> Shoply<span>.</span> </a>
+
+         <nav class="navigation">
+            <a href="index.html" class="active">Home</a>
+            <a href="./pages/about/about.html">About Us</a>
+         </nav>
+
+         <div class="header-actions">
+            <a href="./cart/cart.html" class="cart-link">
+               <span>Cart</span>
+               <span class="cart-count">0</span>
+            </a>
+         </div>
+      </div>
+   </header>
+
+   <!-- Hero Section -->
+   <section class="hero">
+      <div class="container hero-content">
+         <span class="hero-subtitle">WELCOME TO SHOPLY</span>
+
+         <h1>
+            Discover Products
+            <br />
+            You'll Love.
+         </h1>
+
+         <p>Find your favorite products at the best prices. Simple shopping, better living.</p>
+
+         <div class="search-box">
+            <input type="text" placeholder="Search products..." />
+
+            <button type="button">Search</button>
+         </div>
+      </div>
+   </section>
+
+   <!-- Products Section -->
+   <main class="container products-section">
+      <div class="section-heading">
+         <div>
+            <span class="section-subtitle">OUR COLLECTION</span>
+            <h2>Explore Products</h2>
+         </div>
+
+         <p>Find something perfect for you.</p>
+      </div>
+
+      <!-- Category Filters -->
+      <div class="categories">
+         <button class="category-btn active">All Products</button>
+
+         <button class="category-btn">Electronics</button>
+
+         <button class="category-btn">Clothing</button>
+
+         <button class="category-btn">Accessories</button>
+
+         <button class="category-btn">Home</button>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="products-grid" id="productsGrid">
+         <!-- <div class="product-card">
+            <div class="product-image">
+               <img
+                  src="https://www.technolife.com/image/small_product-TLP-390330_e96a4661-571b-47ab-932a-b4ffd3d18fc0.png"
+                  alt="Wireless Headphones" />
+            </div>
+
+            <div class="product-info">
+               <span class="product-category"> Electronics </span>
+
+               <h3>Wireless Headphones</h3>
+
+               <p>High-quality sound with comfortable design.</p>
+
+               <div class="product-bottom">
+                  <span class="product-price">$89.99</span>
+
+                  <button class="add-to-cart-btn">Add to Cart</button>
+               </div>
+            </div>
+         </div> -->
+      </div>
+   </main>
+
+   <!-- Footer -->
+   <footer class="footer">
+      <div class="container footer-content">
+         <div>
+            <a href="index.html" class="logo"> Shoply<span>.</span> </a>
+
+            <p>Making online shopping simple and enjoyable.</p>
+         </div>
+
+         <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="./pages/about/about.html">About Us</a>
+            <a href="./cart/cart.html">Shopping Cart</a>
+         </div>
+      </div>
+
+      <div class="footer-bottom">
+         <p>© 2026 Shoply. All rights reserved.</p>
+      </div>
+   </footer>
+
+   <script src="./javascript/app.js"></script>
+</body>
+
+</html>
