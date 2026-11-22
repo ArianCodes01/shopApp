@@ -44,9 +44,9 @@
          <p>Find your favorite products at the best prices. Simple shopping, better living.</p>
 
          <div class="search-box">
-            <input type="text" placeholder="Search products..." />
+            <input type="text" placeholder="Search products..." id="searchBar"/>
 
-            <button type="button">Search</button>
+            <button type="button" id="searchBtn">Search</button>
          </div>
       </div>
    </section>
@@ -64,15 +64,17 @@
 
       <!-- Category Filters -->
       <div class="categories">
-         <button class="category-btn active">All Products</button>
+         <button class="category-btn active" id="categoryBtn">All Products</button>
 
-         <button class="category-btn">Electronics</button>
+         <button class="category-btn" onclick="filterByCategory('apple')">Apple</button>
 
-         <button class="category-btn">Clothing</button>
+         <button class="category-btn" onclick="filterByCategory('sumsung')">Sumsung</button>
 
-         <button class="category-btn">Accessories</button>
+         <button class="category-btn" onclick="filterByCategory('Xiaomi')">Xiaomi</button>
 
-         <button class="category-btn">Home</button>
+         <button class="category-btn" onclick="filterByCategory('Honor')">Honor</button>
+
+         <button class="category-btn" onclick="filterByCategory('Sony')">Sony</button>
       </div>
 
       <!-- Product Grid -->

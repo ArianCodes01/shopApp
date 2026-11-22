@@ -1,18 +1,23 @@
-let productsGrid = document.getElementById('productsGrid')
 
-window.onload = async function(){
+let productsGrid = document.getElementById('productsGrid')
+let categoryBtn = document.getElementById('categoryBtn')
+let searchBar = document.getElementById('searchBar')
+let searchBtn = document.getElementById('searchBtn')
+
+window.onload = async function () {
    const product = await getProduct()
    createProduct(product)
 }
 
-async function getProduct(){
+async function getProduct() {
    const response = await fetch('http://localhost:3000/products')
    const products = await response.json()
    return products
 }
 
-function createProduct(products){
-   products.forEach(function(product){
+function createProduct(products) {
+   productsGrid.innerHTML = ''
+   products.forEach(function (product) {
       productsGrid.innerHTML += `
          <div class="product-card">
             <div class="product-image">
@@ -36,4 +41,50 @@ function createProduct(products){
          </div>
       `
    })
+}
+
+async function filterByCategory(brand) {
+   const response = await fetch(`http://localhost:3000/products?brand=${brand}`)
+   const data = await response.json()
+
+   createProduct(data)
+}
+
+categoryBtn.onclick = async function () {
+   const product = await getProduct()
+   createProduct(product)
+}
+
+searchBtn.onclick = async function searchProductName() {
+   const searchKey = searchBar.value
+
+   const response = await fetch('http://localhost:3000/products')
+   const data = await response.json()
+
+
+   const filteredProducts = data.filter(function (product) {
+      if (product.name.includes(searchKey)) {
+         return product
+      }
+   })
+
+   createProduct(filteredProducts)
+}
+
+searchBar.onkeydown = async function (event) {
+   if (event.key == 'Enter') {
+      const searchKey = searchBar.value
+
+      const response = await fetch('http://localhost:3000/products')
+      const data = await response.json()
+
+
+      const filteredProducts = data.filter(function (product) {
+         if (product.name.includes(searchKey)) {
+            return product
+         }
+      })
+
+      createProduct(filteredProducts)
+   }
 }
