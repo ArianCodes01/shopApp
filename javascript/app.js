@@ -1,24 +1,46 @@
+let productsGrid = document.getElementById("productsGrid");
+let categoryBtn = document.getElementById("categoryBtn");
+let searchBar = document.getElementById("searchBar");
+let searchBtn = document.getElementById("searchBtn");
+let cartCount = document.getElementById("cartCount");
 
-let productsGrid = document.getElementById('productsGrid')
-let categoryBtn = document.getElementById('categoryBtn')
-let searchBar = document.getElementById('searchBar')
-let searchBtn = document.getElementById('searchBtn')
+let cart = []
 
-window.onload = async function () {
-   const product = await getProduct()
-   createProduct(product)
+async function addToCart(id) {
+  const response = await fetch(`http://localhost:3000/products/${id}`)
+  const data = await response.json()
+
+  cart.push(data)
+  console.log(cart);
+  
+  localStorage.setItem('cart', JSON.stringify(cart))
+
+  Swal.fire({
+    title : 'Item added to cart successfully',
+    icon : 'success',
+    draggable : true
+  })
+
+  cartCount()
 }
 
-async function getProduct() {
-   const response = await fetch('http://localhost:3000/products')
-   const products = await response.json()
-   return products
+window.onload = async function(){
+  const products = await getProducts()
+  createProduct(products)
+
+  cart = getInfoFromLocalStorage()
 }
 
-function createProduct(products) {
-   productsGrid.innerHTML = ''
-   products.forEach(function (product) {
-      productsGrid.innerHTML += `
+async function getProducts() {
+  const response = await fetch('http://localhost:3000/products')
+  const data = await response.json()
+  return data
+}
+
+async function createProduct(products) {
+  productsGrid.innerHTML = ''
+  products.forEach(function (product) {
+    productsGrid.innerHTML += `
          <div class="product-card">
             <div class="product-image">
                <img
@@ -35,56 +57,49 @@ function createProduct(products) {
                <div class="product-bottom">
                   <span class="product-price">$${product.price}</span>
 
-                  <button class="add-to-cart-btn">Add to Cart</button>
+                  <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Add to Cart</button>
                </div>
             </div>
          </div>
       `
-   })
+  })
 }
 
 async function filterByCategory(brand) {
-   const response = await fetch(`http://localhost:3000/products?brand=${brand}`)
-   const data = await response.json()
-
-   createProduct(data)
+  const response = await fetch(`http://localhost:3000/products?brand=${brand}`)
+  const data = await response.json()
+  createProduct(data);
 }
 
-categoryBtn.onclick = async function () {
-   const product = await getProduct()
-   createProduct(product)
+categoryBtn.onclick = async function(){
+  const products = await getProducts()
+  createProduct(products)
 }
 
-searchBtn.onclick = async function searchProductName() {
-   const searchKey = searchBar.value
+searchBtn.onclick = searchBySearchBar
 
-   const response = await fetch('http://localhost:3000/products')
-   const data = await response.json()
+async function searchBySearchBar(){
+  const response = await fetch('http://localhost:3000/products')
+  const data = await response.json()
 
-
-   const filteredProducts = data.filter(function (product) {
-      if (product.name.includes(searchKey)) {
-         return product
-      }
-   })
-
-   createProduct(filteredProducts)
+  const filteredProducts = data.filter(function(product){
+    if(product.name.includes(searchBar.value)){
+      return product
+    }
+  })
+  createProduct(filteredProducts)
 }
 
-searchBar.onkeydown = async function (event) {
-   if (event.key == 'Enter') {
-      const searchKey = searchBar.value
-
-      const response = await fetch('http://localhost:3000/products')
-      const data = await response.json()
-
-
-      const filteredProducts = data.filter(function (product) {
-         if (product.name.includes(searchKey)) {
-            return product
-         }
-      })
-
-      createProduct(filteredProducts)
-   }
+searchBar.onkeydown = function(event){
+  if(event.key == 'Enter'){
+    searchBySearchBar()
+  }
 }
+
+function getInfoFromLocalStorage() {
+  return JSON.parse(localStorage.getItem('cart'))
+}
+
+// function cartCount() {
+//   cartCount.innerHTML = `${cart.length}`
+// }
